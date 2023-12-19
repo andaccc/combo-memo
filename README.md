@@ -2,7 +2,6 @@
 Combo maker for fighting games
 
 ## TODO
-
 - [ ] UI Design
 - [ ] Json Structure Design
 - [ ] Json export/ import
