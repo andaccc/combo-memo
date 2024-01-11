@@ -9,7 +9,9 @@ const WaterMark = () => {
   } as React.CSSProperties
   
   return (
-    <p style={textStyle}>github.com/andaccc</p>
+    <a href={'https://github.com/andaccc'} target="_blank" rel="noreferrer">
+      <p style={textStyle}>github.com/andaccc</p>
+    </a>
   )
 }
 
