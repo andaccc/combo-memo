@@ -1,0 +1,33 @@
+{
+  "game": "GGST",
+  "character": "Ramlethal",
+  "combos": [
+    {
+      "name": "basic",
+      "combo": [
+        {
+          "input": {
+            "direction": ["6"],
+            "buttons": [
+              "k"
+            ]
+          },
+          "description": ""
+        },
+        {
+           "input": {
+              "direction": ["5234", "5234"],
+              "buttons": [
+                "hs"
+              ]
+              
+            },
+            "description": "wall break"
+          }
+      ]
+
+    }
+  ]
+
+
+}
