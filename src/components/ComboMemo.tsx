@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
 import Cookies from 'js-cookie'
 
 import WaterMark from './WaterMark'
@@ -90,7 +89,12 @@ const ComboMemo: React.FC = () => {
   return (
     <Container id="main">
       <Box sx={{ p: 2 }} >
-        <h2>Combo Memo</h2>
+        <div style={{ display: 'flex'}}>
+          <h2>Combo Memo</h2>
+          <img src="/10_chibi_ram.png" alt="appIcon"/>
+        </div>
+
+
         <Grid container spacing={2}>
           {/* First Row */}
           {/* Meta */}
