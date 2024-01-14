@@ -3,6 +3,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import ComboMemo from './components/ComboMemo'
+import { ProfileProvider } from './ProfileContext'
+
 
 const darkTheme = createTheme ({
   palette: {
@@ -13,10 +15,10 @@ const darkTheme = createTheme ({
 function App() {
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <div className="App">
+      <ProfileProvider>
+        <CssBaseline />
         <ComboMemo />
-      </div>
+      </ProfileProvider>
     </ThemeProvider>
   );
 }
