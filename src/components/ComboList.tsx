@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react'
 
-import { Box, Button, ButtonGroup, IconButton, Stack, Divider, List, ListItem, ListItemText, Grid } from '@mui/material';
-import Item from '@mui/material/ListItem';
+import { Box, Button, ButtonGroup, IconButton, Stack, Divider, List, ListItem, ListItemText, Grid, Container } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 
 import { ProfileContext, combo } from '../ProfileContext'
 
-type comboList = combo[];
-
 const ggstButtons = [ "P", "K", "HS", "S", "RC" ] 
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 
 const ComboList: React.FC = () => {
   const { game, character, comboList, addCombo, deleteCombo } = React.useContext(ProfileContext);
@@ -55,104 +63,101 @@ const ComboList: React.FC = () => {
 
   
   return (
-    <Box>
+    <Container>
       {/* button select */}
       <h3>Select Buttons:</h3>
-        <ButtonGroup size="small" aria-label="small button group">
-          {/* store selected buttons */}
-          {ggstButtons.map((button) => (
-            <Button
-              key={button}
-              onClick={() => handleButtonClick(button)}
-            >
-              {button}
-            </Button>
-          ))}
-        </ButtonGroup>
+      <ButtonGroup size="small" aria-label="small button group">
+        {/* store selected buttons */}
+        {ggstButtons.map((button) => (
+          <Button
+            key={button}
+            onClick={() => handleButtonClick(button)}
+          >
+            {button}
+          </Button>
+        ))}
+      </ButtonGroup>
+    
+      <h3>Combo List:</h3>
       
-        <h3>Combo List:</h3>
-        {/* new combo */}
-        <Stack
-          direction="row"
-          // divider={<Divider orientation="vertical" flexItem />}
-          divider={ <ArrowRightIcon/> }
-          justifyContent="center"
-          alignItems="center"
-          spacing={1}
-        >
-          { combo.map((input, index) => (
-            <Item>{input}</Item>
-            ))
-          }
-          {/* last item for adding new input */}
-          <Item>
-          { 
-            selectedButtons.length > 0 && 
-              <Box>
-                {selectedButtons}
-                <IconButton aria-label="add" size="small"
-                  onClick={() => handleAddInput()}
-                >
-                    <AddIcon fontSize="small"/>
-                </IconButton>
-              </Box>
-          }
-
-          </Item>
-
-        </Stack>
-
-        {
-          combo.length > 0 && 
-          <Box>
-            <Button onClick={() => handleAddCombo()} >
-                <AddIcon fontSize="small"/>
-            </Button>
-            <Button onClick={() => handleResetCombo()} >
-                <DeleteIcon fontSize="small"/>
-            </Button>
-          </Box>
-        }
-
-
-        {/* show added combos */}
-        { comboList.map((combo: combo, index) => (
-          <List dense={false}>
-            <ListItem
-              secondaryAction={
-                <IconButton 
-                  edge="end" 
-                  aria-label="delete"
-                  onClick={() => handleDeleteCombo(index)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              }
-            >
-              <Stack
-                direction="row"
-                // divider={<Divider orientation="vertical" flexItem />}
-                divider={ <ArrowRightIcon/> }
-                justifyContent="center"
-                alignItems="center"
-                spacing={1}
-              >
-                { combo.map((input, index) => (
-                  <Item>{input}</Item>
-                  ))
-                }
-
-              </Stack>
-
-            {/* <ListItemText
-              primary="Single-line item"
-              secondary={null}
-            /> */}
-            </ListItem>
-          </List>
+      {/* new combo */}
+      <Stack
+        direction="row"
+        divider={ <ArrowRightIcon />  }
+        justifyContent="center"
+        alignItems="center"
+        spacing={1}
+      >
+        { combo.map((input, index) => (
+          <Item key={index}>{input}</Item>
           ))
         }
-  </Box>
+
+        <Item>
+        { 
+          selectedButtons.length > 0 && 
+          <Container>
+            {selectedButtons}
+            <IconButton aria-label="add" size="small"
+              onClick={() => handleAddInput()}
+            >
+                <AddIcon fontSize="small"/>
+            </IconButton>
+          </Container>
+        }
+
+        </Item>
+
+      </Stack>
+
+
+      {
+        combo.length > 0 && 
+        <Container>
+          <Button onClick={() => handleAddCombo()} >
+              <AddIcon fontSize="small"/>
+          </Button>
+          <Button onClick={() => handleResetCombo()} >
+              <DeleteIcon fontSize="small"/>
+          </Button>
+        </Container>
+      }
+
+
+      {/* show added combos */}
+      <List dense={false}>
+        { comboList.map((combo: combo, index) => (
+          <ListItem
+            key={index}
+            secondaryAction={
+              <IconButton 
+                edge="end" 
+                aria-label="delete"
+                onClick={() => handleDeleteCombo(index)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            }
+          >
+            <Stack
+              direction="row"
+              // divider={<Divider orientation="vertical" flexItem />}
+              divider={ <ArrowRightIcon/> }
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
+              { combo.map((input, index) => (
+                <Item key={index}>{input}</Item>
+                ))
+              }
+
+            </Stack>
+          </ListItem>
+        ))
+      }
+      </List>
+  </Container>
   )
 }
 

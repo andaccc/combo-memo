@@ -13,15 +13,27 @@ export const Characters = {
   },
 }
 
+interface ProfileValues {
+  game: any,
+  character: string,
+  changeCharacter: (char: string) => void,
+  comboList: combo[],
+  addCombo: (combo: combo) => void,
+  deleteCombo: (index: number) => void,
+}
 
-export const ProfileContext = React.createContext({
+const profileValues: ProfileValues = {
   game: '',
   character: Characters.ggst.ram,
   changeCharacter: (char: string) => {},
   comboList: [],
   addCombo: (combo: combo) => {},
   deleteCombo: (index: number) => {},
-});
+}
+
+
+
+export const ProfileContext = React.createContext(profileValues);
 
 export const ProfileProvider = ({children}: any) => {
   const [game, setGame] = React.useState('ggst');
@@ -41,7 +53,17 @@ export const ProfileProvider = ({children}: any) => {
   }
 
   return (
-    <ProfileContext.Provider value={{ game, character, changeCharacter, comboList, addCombo, deleteCombo }}>
+    // <ProfileContext.Provider value={profileValues} >  
+  
+    <ProfileContext.Provider value={{ 
+                              game, 
+                              character, 
+                              changeCharacter, 
+                              comboList, 
+                              addCombo, 
+                              deleteCombo 
+                            }}
+    >
       {children}
     </ProfileContext.Provider>
   );
