@@ -6,15 +6,17 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-type combo = string[]
+import { ProfileContext, combo } from '../ProfileContext'
+
 type comboList = combo[];
 
 const ggstButtons = [ "P", "K", "HS", "S", "RC" ] 
 
 const ComboList: React.FC = () => {
+  const { game, character, comboList, addCombo, deleteCombo } = React.useContext(ProfileContext);
+
   const [selectedButtons, setSelectedButtons] = useState<string>("");
   const [combo, setCombo] = useState<combo>([]); 
-  const [comboList, setComboList] = useState<comboList>([]);
 
   const handleButtonClick = (button: string): void => {
     setSelectedButtons(button)
@@ -34,7 +36,8 @@ const ComboList: React.FC = () => {
 
   const handleAddCombo = (): void => {
     // add new combo to combo list
-    setComboList((prevComboList) => [...prevComboList, combo]);
+    addCombo(combo);
+
     // reset combo
     setCombo([]);
     setSelectedButtons("");
@@ -43,6 +46,11 @@ const ComboList: React.FC = () => {
   const handleResetCombo = (): void => {
     // reset new combo
     setCombo([]);
+  }
+
+  const handleDeleteCombo = (index: number): void => {
+    // delete combo from combo list
+    deleteCombo(index);
   }
 
   
@@ -108,19 +116,38 @@ const ComboList: React.FC = () => {
 
 
         {/* show added combos */}
-        { comboList.map((input, index) => (
+        { comboList.map((combo: combo, index) => (
           <List dense={false}>
             <ListItem
               secondaryAction={
-                <IconButton edge="end" aria-label="delete">
+                <IconButton 
+                  edge="end" 
+                  aria-label="delete"
+                  onClick={() => handleDeleteCombo(index)}
+                >
                   <DeleteIcon />
                 </IconButton>
               }
             >
-            <ListItemText
+              <Stack
+                direction="row"
+                // divider={<Divider orientation="vertical" flexItem />}
+                divider={ <ArrowRightIcon/> }
+                justifyContent="center"
+                alignItems="center"
+                spacing={1}
+              >
+                { combo.map((input, index) => (
+                  <Item>{input}</Item>
+                  ))
+                }
+
+              </Stack>
+
+            {/* <ListItemText
               primary="Single-line item"
               secondary={null}
-            />
+            /> */}
             </ListItem>
           </List>
           ))
