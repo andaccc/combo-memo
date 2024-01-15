@@ -80,48 +80,55 @@ const ComboList: React.FC = () => {
     
       <h3>Combo List:</h3>
       
+      <Grid container spacing={1}>
+        <Grid item xs={8}>
+          <Stack
+          direction="row"
+          divider={ <ArrowRightIcon />  }
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+          >
+            { combo.map((input, index) => (
+              <Item key={index}>{input}</Item>
+              ))
+            }
+
+            <Item>
+            { 
+              selectedButtons.length > 0 && 
+              <Container>
+                {selectedButtons}
+                <IconButton aria-label="add" size="small"
+                  onClick={() => handleAddInput()}
+                >
+                    <AddIcon fontSize="small"/>
+                </IconButton>
+              </Container>
+            }
+
+            </Item>
+
+          </Stack>
+        </Grid>
+        <Grid item xs={4}>
+          {
+            combo.length > 0 && 
+            <Container>
+              <IconButton  onClick={() => handleAddCombo()} color="primary">
+                  <AddIcon fontSize="small"/>
+              </IconButton >
+              <IconButton  onClick={() => handleResetCombo()} color="primary">
+                  <DeleteIcon fontSize="small"/>
+              </IconButton >
+            </Container>
+          }
+        </Grid>
+
+      </Grid>
       {/* new combo */}
-      <Stack
-        direction="row"
-        divider={ <ArrowRightIcon />  }
-        justifyContent="center"
-        alignItems="center"
-        spacing={1}
-      >
-        { combo.map((input, index) => (
-          <Item key={index}>{input}</Item>
-          ))
-        }
+      
 
-        <Item>
-        { 
-          selectedButtons.length > 0 && 
-          <Container>
-            {selectedButtons}
-            <IconButton aria-label="add" size="small"
-              onClick={() => handleAddInput()}
-            >
-                <AddIcon fontSize="small"/>
-            </IconButton>
-          </Container>
-        }
-
-        </Item>
-
-      </Stack>
-
-
-      {
-        combo.length > 0 && 
-        <Container>
-          <Button onClick={() => handleAddCombo()} >
-              <AddIcon fontSize="small"/>
-          </Button>
-          <Button onClick={() => handleResetCombo()} >
-              <DeleteIcon fontSize="small"/>
-          </Button>
-        </Container>
-      }
 
 
       {/* show added combos */}

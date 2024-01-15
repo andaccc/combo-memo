@@ -13,6 +13,51 @@ export const Characters = {
   },
 }
 
+export const DirInput = {
+  "Neutral": "5",
+  "Forward": "6",
+  "Back": "4",
+  "Down": "2",
+  "DownForward": "3",
+  "DownBack": "1",
+  "Jump": "8",
+  "Dash": "66",
+  "DP": "623",
+  "ReverseDP": "421",
+  "QuarterForward": "236",
+  "QuarterBack": "214",
+  "HalfForward": "41236",
+  "HalfBack": "63214",
+  "FullForward": "4123641236",
+  "FullBack": "6321463214",
+}
+
+export const MiscInput = {
+  "JumpCancel": "jc",
+  "SuperJump": "sj",
+  "DoubleJump": "dj",
+  "AirDash": "ad"
+}
+
+export const condition = {
+  "air": "air",
+  "wall": "wall",
+  "delay": "delay",
+  "close": "close",
+  "far": "far",
+  "counter": "counter", 
+}
+
+// TODO: GGST attack input
+export const GGSTAttackInput = {
+  "P": "P",
+  "K": "K",
+  "S": "S",
+  "HS": "HS",
+  "D": "D",
+
+}
+
 interface ProfileValues {
   game: any,
   character: string,

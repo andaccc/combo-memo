@@ -4,7 +4,7 @@ const WaterMark = () => {
   const textStyle = {
     position: 'fixed',
     right: '10vh',
-    bottom: '1vh',
+    up: '1vh',
     color: '#7B7B7B'
   } as React.CSSProperties
   

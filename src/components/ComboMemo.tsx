@@ -6,19 +6,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Cookies from 'js-cookie'
 
-import WaterMark from './WaterMark'
+import { Item } from './Item';
 import ProfileMeta from './ProfileMeta';
 import ComboList from './ComboList';
 
 export const ProfileContext = React.createContext({});
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 // data structure for storing combos
 
@@ -105,9 +97,8 @@ const ComboMemo: React.FC = () => {
           </Grid>
           <Grid item xs={4}>
             {/* auto save? */}
-            <Item>Save</Item>
-            {/* <Item>Export</Item>
-            <Item>Import</Item> */}
+            <Item>Export</Item>
+            <Item>Import</Item>
           </Grid>
           {/* 
           Second Row 
@@ -119,7 +110,6 @@ const ComboMemo: React.FC = () => {
             </Item>
           </Grid>
         </Grid>
-        <WaterMark/>
       </Box>
     </Container>
     
