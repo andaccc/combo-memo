@@ -6,9 +6,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Cookies from 'js-cookie'
 
+import packageJson from './../../package.json';
 import { Item } from './Item';
 import ProfileMeta from './ProfileMeta';
 import ComboList from './ComboList';
+
 
 export const ProfileContext = React.createContext({});
 
@@ -83,13 +85,12 @@ const ComboMemo: React.FC = () => {
       <Box sx={{ p: 2 }} >
         <div style={{ display: 'flex'}}>
           <h2>Combo Memo</h2>
+          <h4 style={{ paddingLeft: '10px', color: '#7B7B7B'}}>{packageJson.version}</h4>
           <img src="/10_chibi_ram.png" alt="appIcon"/>
         </div>
 
-
         <Grid container spacing={2}>
           {/* First Row */}
-          {/* Meta */}
           <Grid item xs={8}>
             <Item>      
               <ProfileMeta/>

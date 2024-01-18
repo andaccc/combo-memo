@@ -1,10 +1,11 @@
 import React from 'react'
 
+
 const WaterMark = () => {
   const textStyle = {
     position: 'fixed',
     right: '10vh',
-    up: '1vh',
+    down: '500vh',
     color: '#7B7B7B'
   } as React.CSSProperties
   
