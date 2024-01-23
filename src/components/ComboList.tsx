@@ -10,6 +10,10 @@ import { TextField } from '@mui/material';
 import { ProfileContext, combo } from '../ProfileContext'
 
 import { Item } from './Item';
+import ComboViewer from './ComboViewer';
+import { translateComboString } from './ComboViewer';
+import {Combo, Input} from './InputMap';
+
 
 const ggstButtons = [ "P", "K", "HS", "S", "RC" ] 
 
@@ -19,7 +23,7 @@ const ComboList: React.FC = () => {
 
   const [selectedButtons, setSelectedButtons] = useState<string>("");
   const [comboString, setComboString] = useState<string>("");
-  const [translatedCombo, setTranslatedCombo] = useState<combo>([]);
+  const [translatedCombo, setTranslatedCombo] = useState<Combo>([]);
   const [combo, setCombo] = useState<combo>([]); 
 
   const handleButtonClick = (button: string): void => {
@@ -59,83 +63,29 @@ const ComboList: React.FC = () => {
 
   const handleComboString = (comboString: string): void => {
     setComboString(comboString);
-    var inputs = translateComboString(comboString)
+    var inputs = translateCombo(comboString)
     setTranslatedCombo(inputs);
   }
 
-  const translateInput = (input: string): string => {
-    // example
-    // 2K or 5K > 2D > 214P > 214P > 214P
-    // c.S > 2H > 623P, c.S > jc, j.K > j.214S
-    
-    var translatedInput = "";
-    switch (input) {
-      case "P":
-        translatedInput = "P";
-        break;
-      case "K":
-        translatedInput = "K";
-        break;
-      case "HS":
-        translatedInput = "HS";
-        break;
-      case "S":
-        translatedInput = "S";
-        break;
-      case "RC":
-        translatedInput = "RC";
-        break;
-      default:
-        translatedInput = input
-        break;
-    }
+  const translateCombo= (comboString: string): Combo => {
+    var combo: Combo = [];
 
-    return translatedInput;
-  }
-
-  const translateComboString = (comboString: string): combo => {
-    var combo: combo = [];
-
-    // split string to arr, demiliter >
-    var inputs = comboString.split(">");
-
-    // translate each input
-    for (var i = 0; i < inputs.length; i++) {
-      var input = inputs[i];
-      var translatedInput = translateInput(input);
-      
-
-
-      if (translatedInput === '') {
-        continue
-      }
-
-      combo.push(translatedInput);
-    }
-
-
-    return combo;
+    combo = translateComboString(comboString)
+    return combo
   }
 
   return (
     <Container>
-      {/* string notation translate */}
+      {/*
+        string notation translate 
+      */}
       <h3>Combo String Translate:</h3>
       <TextField id="standard-basic" variant="standard" onChange={event => handleComboString(event.target.value)}/>
-      <Stack
-        direction="row"
-        // divider={<Divider orientation="vertical" flexItem />}
-        divider={ <ArrowRightIcon/> }
-        justifyContent="center"
-        alignItems="center"
-        spacing={1}
-      >
-        { translatedCombo.map((input, index) => (
-          <Item key={index}>{input}</Item>
-          ))
-        }
+      <ComboViewer combo={translatedCombo}/>
 
-      </Stack>
+      {/*
+        Combo List 
+       */}
 
       {/* button select */}
       <h3>Inputs:</h3>
