@@ -39,7 +39,7 @@ export const translateComboString = (comboString: string): Input[][] => {
 }
 
 export const translateInput = (input: string): Input[] => {
-  var parsed = parseInputs(input) // breakdown input
+  var parsed = parseInputs(input.toUpperCase()) // breakdown input
 
   var translatedInput: Input[] = []
 
@@ -52,29 +52,44 @@ export const translateInput = (input: string): Input[] => {
   return translatedInput
 }
 
+/**
+ * Parse input string into direction and action
+ * @TODO: 
+ * add support for multiple moves
+ * - 2222 -> 2, 2, 2, 2
+ * - 236236 -> 236, 236
+ * 
+ * How to handle if no input found?
+ * - return string as is?
+ * 
+ * @param input input string
+ * @returns array of input object
+ */
 const parseInputs = (input: string): string[] => {
   // parse input string into direction and action
-  const directionRegex = /(2|4|6|8)(.*)/;
-  const actionRegex = /(P|MP|HP|LK|MK|HK)/;
-  // define dict for direction and action?
-  // var  parsedInputs = {
-  //   direction: "",
-  //   action: ""
-  // }
+  
+  // get regex check from input map
+  // if type: 'direction',
+  // new RegExp(myArray.join("|"), 'gi');
 
   var parsedInputs = []
+  var dirKey = Object.keys(InputMap).filter(key => InputMap[key].type === 'direction')
+  var actKey = Object.keys(InputMap).filter(key => InputMap[key].type === 'action' || InputMap[key].type === 'attack')
+ 
+  var directionRegex = new RegExp(dirKey.join("|"), 'g');
+  var actionRegex = new RegExp(actKey.join("|"), 'g');
 
   const directionMatch = input.match(directionRegex);
   const actionMatch = input.match(actionRegex);
 
-  if (directionMatch) {
+  if (directionMatch && directionMatch[0]) {
     // parsedInputs.direction = directionMatch[1];
     // parsedInputs.action = directionMatch[2];
-    parsedInputs.push(directionMatch[1]);
+    parsedInputs.push(directionMatch[0]);
   }
   
-  if (actionMatch) {
-    parsedInputs.push(actionMatch[1]);
+  if (actionMatch && actionMatch[0]) {
+    parsedInputs.push(actionMatch[0]);
     // parsedInputs.action = actionMatch[1];
   }
 
@@ -98,7 +113,7 @@ const ComboViewer = ({combo}: {combo: Combo}) => {
               // add space between icons
               inputs.map((input, index) => (
                 <span key={index} style={{ marginRight: '8px' }}>
-                  {input.icon}
+                  {input.icon? input.icon : input.label}
                 </span>
               ))
             }
