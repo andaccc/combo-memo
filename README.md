@@ -1,6 +1,9 @@
 # combo-memo
 Combo maker for fighting games
 
+https://main.d2g7trznx87yya.amplifyapp.com/
+
+
 ## TODO
 - [ ] UI Design
 - [ ] Json Structure Design
