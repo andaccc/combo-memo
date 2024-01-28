@@ -72,6 +72,12 @@ export const InputMap: Record<string, Input> = {
     type: 'direction',
     icon: <img src="/input_icon/dir/36px-InputIcon_236.png" alt="appIcon"/>,
   },
+  '236236': {
+    label: '236236',
+    name: 'Double Quarter Forward',
+    type: 'direction',
+    icon: <div><img src="/input_icon/dir/36px-InputIcon_236.png" alt="appIcon"/><img src="/input_icon/dir/36px-InputIcon_236.png" alt="appIcon"/></div>,
+  },
   '214': {
     label: '214',
     name: 'Quarter Back',

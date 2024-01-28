@@ -67,32 +67,37 @@ export const translateInput = (input: string): Input[] => {
  */
 const parseInputs = (input: string): string[] => {
   // parse input string into direction and action
-  
-  // get regex check from input map
-  // if type: 'direction',
-  // new RegExp(myArray.join("|"), 'gi');
 
-  var parsedInputs = []
+
+  var parsedInputs: string[] = []
   var dirKey = Object.keys(InputMap).filter(key => InputMap[key].type === 'direction')
   var actKey = Object.keys(InputMap).filter(key => InputMap[key].type === 'action' || InputMap[key].type === 'attack')
  
-  var directionRegex = new RegExp(dirKey.join("|"), 'g');
-  var actionRegex = new RegExp(actKey.join("|"), 'g');
+  // separate input string into direction and action
+  // 236P -> 236, P
+  // 236236P -> 236, 236, P
+  // 236236 P -> 236, 236, P
+  // 236 236 P -> 236, 236, P
 
-  const directionMatch = input.match(directionRegex);
-  const actionMatch = input.match(actionRegex);
-
-  if (directionMatch && directionMatch[0]) {
-    // parsedInputs.direction = directionMatch[1];
-    // parsedInputs.action = directionMatch[2];
-    parsedInputs.push(directionMatch[0]);
+  var inputArr = input.split(/(\d+)/).map((item) => item.trim())
+  console.log(inputArr)
+  for (var i = 0; i < inputArr.length; i++) {
+    if (dirKey.includes(inputArr[i])) {
+      parsedInputs.push(inputArr[i]);
+    } 
+    else if (actKey.includes(inputArr[i])) {
+      parsedInputs.push(inputArr[i]);
+    } 
+    else {
+      // input not found
+      // TODO: handle unknown input
+      // return input as is 
+      console.log("input not found: " + input)
+    }
   }
-  
-  if (actionMatch && actionMatch[0]) {
-    parsedInputs.push(actionMatch[0]);
-    // parsedInputs.action = actionMatch[1];
-  }
 
+
+  // parse input string into direction and action
   return parsedInputs;
 };
 
