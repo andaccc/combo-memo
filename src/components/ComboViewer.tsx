@@ -120,9 +120,9 @@ const ComboViewer = ({combo}: {combo: Combo}) => {
                 <span key={index} style={{ marginRight: '8px' }}>
                   {input.icon? input.icon : input.label}
                 </span>
+                
               ))
             }
-            
           </Item>
           ))
         }
